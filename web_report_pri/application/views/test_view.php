@@ -12,6 +12,7 @@
     <div class="row">
         <h1>Welcome</h1>
         <button class="btn btn-outline-primary"> test</button>
+        <button class="btn btn-outline-primary"> test</button>
     </div>
 
 </div>
