@@ -7,9 +7,14 @@ class m_table_report extends CI_Model {
         parent::__constructor();
       
     }
-     public function index(){
-        $this->load->view('table_report');
-     }
+    function fetch_table_report(){
+        // $query = $this->db->get("prison");
+        $query = $this->db->query("select * from prison 
+        join prename 
+        on prename.pre_id = prison.pre_id
+        ");
+        return $query;
+    }
 
     
 }
