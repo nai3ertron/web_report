@@ -76,18 +76,18 @@ html, body {
         var marker, info;
         $.getJSON("c_table_report/loadDataReport",function(jsonObj){
             $.each(jsonObj, function(i,item){
-                console.log(item.place_name);
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(item.lat,item.lon),
                     map: map
                 });
                 info = new google.maps.InfoWindow();
-                google.maps.event.addListener(marker,'click',function(marker,i){
+                google.maps.event.addListener(marker,'click',(function(marker,i){
+                        console.log(item.place_name);
                     return function (){
                         info.setContent(item.place_name);
                         info.open(map, marker);
                     }
-                })
+                })(marker,i));
             });
         });
         document.getElementById('search').addEventListener('click',function(){
@@ -102,16 +102,16 @@ html, body {
                 zoom: 11,
                 mapTypeId: 'terrain'
             });
-            var marker = new google.maps.Marker({
-                    position: position,
-                    map: map
-            })
-            var info = new google.maps.InfoWindow({
-                    content: '<div style="font-size: 15px">ชื่ออะไรซักอย่าง</div>'
-            })
-            google.maps.event.addListener(marker,'click',function () {
-                info.open(map,marker);
-            })
+            // var marker = new google.maps.Marker({
+            //         position: position,
+            //         map: map
+            // })
+            // var info = new google.maps.InfoWindow({
+            //         content: '<div style="font-size: 15px">ชื่ออะไรซักอย่าง</div>'
+            // })
+            // google.maps.event.addListener(marker,'click',function () {
+            //     info.open(map,marker);
+            // })
         }// function search
     }//init
 

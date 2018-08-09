@@ -11,7 +11,9 @@
                         <th style="width: 3%">ลำดับ</th>
                         <th style="width: 10%">ชื่อ</th>
                         <th style="width: 10%">นามสกุล</th>
-                        <th style="width: 10%">พิกัด</th>
+                        <th style="width: 10%">สถานที่</th>
+                        <th style="width: 15%">พิกัด</th>
+
                     </tr>
                 </thead>
             <tbody>
@@ -24,7 +26,8 @@
                             <td><?php echo $row->ps_id; ?></td>
                             <td><?php echo $row->pre_name." ".$row->ps_name; ?></td>
                             <td><?php echo $row->ps_surname; ?></td>
-                            <td><?php echo $row->place_name." (".$row->lat.",".$row->lon.")"; ?></td>
+                            <td class="text-left"><?php echo $row->place_name; ?></td>
+                            <td class="text-left"><?php echo $row->lat.", ".$row->lon ;?> </td>
                             <!-- <td> -->
                                 <!-- <form > -->
                                     <!-- <div class="row">
