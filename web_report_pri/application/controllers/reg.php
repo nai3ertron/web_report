@@ -18,8 +18,10 @@ class reg extends CI_Controller{
 
      public function register(){
 
+
        $username=$this->input->post('username');
        $password=$this->input->post('password');
+
        $this->load->model('m_reg','mgd');
 
        $mgd = $this->mgd;
@@ -40,6 +42,8 @@ class reg extends CI_Controller{
         $mgd->insert();
         header("Location: http://localhost/web_report/web_report_pri/c_login");
       }
+
+
   }
 
 }

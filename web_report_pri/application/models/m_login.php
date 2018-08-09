@@ -15,10 +15,19 @@ class m_login extends CI_Model {
         $this->load->view('v_login');
      }
 
+
+     public function get_user($username,$password){
+       $sql="SELECT * FROM users WHERE username = '$username' AND password ='$password'";
+       $result = $this->db->query($sql);
+       return $result;
+
+
+     }
+
     public function check_login($username,$password){
       $this->username = $username;
         $this->password = $password;
-      $sql="SELECT 1 FROM users WHERE username = '$username' AND password ='$password'";
+      $sql="SELECT * FROM users WHERE username = '$username' AND password ='$password'";
       $query = $this->db->query($sql);
 
    if($query->num_rows()>0){

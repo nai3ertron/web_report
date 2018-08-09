@@ -6,14 +6,29 @@ class c_profile extends CI_Controller{
 
   function __construct(){
 		parent::__construct();
+
       $this->load->library('session');
+
 
 	}
      public function index(){
+
         $data['title'] = "Profile";
         $this->load->view('header',$data);
         $this->load->view('v_profile');
         $this->load->view('footer');
+
      }
+
+     public function get_all(){
+ 			$sql="SELECT username FROM users ";
+ 			$result = $this->db->query($sql);
+ 			return $result;
+
+
+ 		}
+
+
    }
-   ?>
+
+?>

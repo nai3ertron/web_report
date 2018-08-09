@@ -1,31 +1,3 @@
-<?php /*
-session_start();
-
-$link =mysqli_connect("localhost","root","root");
-
-mysqli_select_db("area_report");
-$strSQL = "SELECT * FROM users WHERE username = '".mysql_real_escape_string($_POST['user'])."'
-and password = '".mysql_real_escape_string($_POST['pass'])."'";
-
-$objQuery = mysql_query($strSQL);
-
-$objResult = mysql_fetch_array($objQuery);
-if(!$objResult){
-?>
-  <script>
-    alert("Incorrect");
-    </script>
-	<?php
-}else{
-      $_SESSION["user_id"]=$objResult["user_id"];
-
-
-	   session_write_close();
-	   header("location:profile.php");
- }
- mysql_close();
- */
-?>
 
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -56,26 +28,45 @@ class c_login extends CI_Controller{
     $mgd->password = $password;
 
     $mgd = $this->mgd;
+
+    $query= $mgd->get_user($username,$password);
     if($mgd->check_login($username,$password)){
+      $row = $query->row(1);
+      $data = array(
+                'user_id'           => $row->user_id,
+                'username'        => $row->username,
+                'password'      => $row->password,
+              );
 
 
-$this->session->set_userdata('username',$username);
+      $this->session->set_userdata($data);
       $var = $this->session->userdata;
-      session_write_close();
-	   header("location:http://localhost/web_report/web_report_pri/c_profile");
+            session_write_close();
+      header("Location: http://localhost/web_report/web_report_pri/c_profile");
 
     }else{
-echo "Incorrect";
-
+echo ("<script >
+ alert('username or password is incorrect');
+ window.location.href='http://localhost/web_report/web_report_pri/c_login'
+</script>");
 
     }
+
 
    }
 
    public function logout(){
 
+     $this->session->unset_userdata('user_id');
+     $this->session->unset_userdata('username');
+     $this->session->unset_userdata('password');
+     $this->session->sess_destroy();
+     echo '<p><pre>after: ';
+ print_r($_SESSION);
+ echo '</pre>';
+ }
 
-   }
+
 
 }
 ?>

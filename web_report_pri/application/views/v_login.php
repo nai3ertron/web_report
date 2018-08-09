@@ -1,25 +1,27 @@
-
+<?php
+    include('header.php');
+?>
 <html>
 <head>
-<!----!>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" ></script>
-<link rel ="stylesheet" href ="asset/bootstrap/css/bootstrap.min.css" type="text/css">
-<link rel ="stylesheet" href ="asset/bootstrap/css/bootstrap-theme.min.css" type="text/css">
-<!-- -->
 
 <script>
 
 </script>
 <style>
- #login{
-	 padding:50px;
- }
+#pad{
+ padding:10px;
+}
 
- @media (min-width: 1200px) {
-  .container {
-    width: 700px;
-	padding-top:150px;
-  }
+
+.container .panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+body{
+  background-color: #e5e7ea;
 }
 </style>
 </head>
@@ -28,22 +30,48 @@
 <div class="container" >
 
 <form method="post" action="/web_report/web_report_pri/c_login/authen">
-<fieldset class="border p-2">
-<legend class="w-auto">LOG IN</legend>
-	<div id="login">
-		<span >Username:</span><input name="username" type="text" /><br><br>
-		<span >Password:</span><input name="password" type="password" /><br>
 
-<input type="submit" name="Submit" value="Login">
+  <div class="col-xs-offset-3 col-xs-6">
+
+  <div class="panel panel-default shadow-sm p-3 mb-5 bg-white rounded" style="width:25%; " >
+    <div class="panel-content ">
+     <div class="panel-heading ">
+       <h3 class="panel-title text-center">Login</h3>
      </div>
-</fieldset>
-No Account?:<a href='http://localhost/web_report/web_report_pri/reg' >Register </a>
+
+
+      <div class="panel-body">
+         <div class="form-group " id="pad">
+
+
+          <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+          </div>
+
+          <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+      </div>
+    </div>
+
+
+
+      <div class="panel-footer">
+        <div class="form-group" style="padding:5px;">
+         <span align="center">
+        don't have account:<a href='http://localhost/web_report/web_report_pri/reg' >Register</a>
+         </span>
+         <input  class="btn btn-success" style="float:right; padding:3px; " type="submit" name="Submit" value="Login">
+        </div>
+      </div>
+    </div><!--end panel content-->
+  </div>  <!--end panel-->
+  </div><!--end wrap-->
 </form>
 
 </div>
-<!--->
- <script src="asset/bootstrap/js/bootstrap.min.js"></script>
-<script src="asset/bootstrap/js/moment.min.js" type="text/javascript"></script>
-<!--->
+
 </body>
 </html>
