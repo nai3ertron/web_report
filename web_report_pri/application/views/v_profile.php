@@ -100,7 +100,7 @@ $(document).ready(function(){
       <nav class="navbar-expand-sm ">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">Link 1</a>
+            <a class="nav-link" href="http://localhost/web_report/web_report_pri/c_table_report">Link 1</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link 2</a>

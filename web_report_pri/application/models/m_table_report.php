@@ -12,6 +12,8 @@ class m_table_report extends CI_Model {
         $query = $this->db->query("select * from prison 
         join prename 
         on prename.pre_id = prison.pre_id
+        join places
+        on prison.ps_pl_id = places.place_id
         ");
         return $query;
     }
