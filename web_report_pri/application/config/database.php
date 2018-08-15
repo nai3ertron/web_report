@@ -75,10 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.86.122',
-	'username' => 'user',
-	'password' => '123456',
-	'database' => 'area_report',
+	'hostname' => 'ztidev.com',
+	// 'port' => '3306',
+	'username' => 'em',
+	'password' => 'ZTIDEVzeal1tech',
+	'database' => 'em',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
