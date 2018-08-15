@@ -6,7 +6,7 @@ class reg extends CI_Controller{
 
   function __construct(){
 		parent::__construct();
-
+  $this->load->library('encryption');
 
 	}
      public function index(){
@@ -21,7 +21,7 @@ class reg extends CI_Controller{
 
        $username=$this->input->post('username');
        $password=$this->input->post('password');
-
+      $password = password_hash($password, PASSWORD_DEFAULT);
        $this->load->model('m_reg','mgd');
 
        $mgd = $this->mgd;

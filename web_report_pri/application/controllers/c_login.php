@@ -8,6 +8,9 @@ class c_login extends CI_Controller{
   function __construct(){
 		parent::__construct();
       $this->load->library('session');
+      $this->load->library('encryption');
+
+$this->load->library('form_validation');
 
 	}
      public function index(){
@@ -21,6 +24,8 @@ class c_login extends CI_Controller{
      $username = $this->input->post('username');
 
    $password = $this->input->post('password');
+
+
     $this->load->model('m_login','mgd');
     $mgd = $this->mgd;
 
@@ -29,7 +34,7 @@ class c_login extends CI_Controller{
 
     $mgd = $this->mgd;
 
-    $query= $mgd->get_user($username,$password);
+    $query= $mgd->get_user($username);
     if($mgd->check_login($username,$password)){
       $row = $query->row(1);
       $data = array(
@@ -47,7 +52,7 @@ class c_login extends CI_Controller{
     }else{
 echo ("<script >
  alert('username or password is incorrect');
- window.location.href='http://localhost/web_report/web_report_pri/c_login'
+window.location.href='http://localhost/web_report/web_report_pri/c_login';
 </script>");
 
     }
@@ -61,9 +66,7 @@ echo ("<script >
      $this->session->unset_userdata('username');
      $this->session->unset_userdata('password');
      $this->session->sess_destroy();
-     echo '<p><pre>after: ';
- print_r($_SESSION);
- echo '</pre>';
+  
  }
 
 
