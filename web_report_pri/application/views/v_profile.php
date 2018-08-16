@@ -71,16 +71,9 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
 }
-
-
-
 </style>
-
 </head>
 <body>
-
-
-
      <div class="col" id="main">main
 
        <div id="canvas" style="width:80%; height:30%; min-height:300px;" >
