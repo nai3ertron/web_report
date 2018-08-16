@@ -23,7 +23,7 @@
     padding: 5px;
     }
 </style>
-<div class="container" style="margin-top:3%">
+<div class="container" style="margin-top:3%" id="main">
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive-md">
@@ -41,7 +41,7 @@
                     </tr>
                 </thead>
             <tbody >
-            <?php 
+            <?php
                 if($fetch_table->num_rows() > 0){
                     foreach ($fetch_table->result() as $row) {
                         // print_r($row);
@@ -63,11 +63,11 @@
                     <tr>
                         <td colspan="3"> Data not found !! </td>
                     </tr>
-            <?php  
-                    
+            <?php
+
                 }
             ?>
-            
+
             </tbody>
             </table>
         </div>
@@ -77,7 +77,7 @@
   <div class="float-panal">
     <div class="row">
         <div class="col-md-4 form-group">
-            <input class="form-control input-sm" type="text" id="lat" placeholder="latitude"> 
+            <input class="form-control input-sm" type="text" id="lat" placeholder="latitude">
         </div>
         <div class="col-md-4 form-group">
             <input class="form-control input-sm" type="text" id="lng" placeholder="longitude">
@@ -101,7 +101,7 @@ $(document).ready(function() {
     $('#test_data').DataTable({
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
     });
-   
+
     // load_place_data();
     // function load_place_data(lat,lon){
     //     $.ajax({
@@ -110,7 +110,7 @@ $(document).ready(function() {
     //         data:{lat:lat,lon:lon},
     //         success:function (data) {
     //             $('#show_report').html(data);
-               
+
     //         }
     //     });
     // }
@@ -129,7 +129,7 @@ $(document).ready(function() {
     //     }
     // })
 });
-// 
+//
     var map;
     var position = {lat: 13.847860 , lng: 100.604274};
     function initMap() {
@@ -188,7 +188,7 @@ $(document).ready(function() {
         function setLatLng(position) {
             var lat = parseFloat(document.getElementById('lat').value);
             var lng = parseFloat(document.getElementById('lng').value);
-            position = {lat: lat, lng: lng};         
+            position = {lat: lat, lng: lng};
             var marker = new google.maps.Marker({
                     position: position,
                     draggable: true,
@@ -227,7 +227,7 @@ $(document).ready(function() {
                     //     data:"out of area",
                     //     success:function (data) {
                     //         $('#reportStatus').html(data);
-                        
+
                     //     }
                     // });
                     $('#action').html("อยู่นอกเขต")
@@ -237,9 +237,9 @@ $(document).ready(function() {
                     $('#action').html("อยู่ในเขต")
                     $('#action').css({"background-color":"green"})
                     console.log(": "+true)
-                        
+
                 }
-                   
+
             });
             map.panTo(marker.getPosition());
         }// function search
@@ -255,7 +255,7 @@ $(document).ready(function() {
                 draggable: true,
                 animation: google.maps.Animation.DROP,
                 label: labels[labelIndex++ % labels.length],
-                map: map,     
+                map: map,
             })
         }  // click mark on map
 
@@ -271,7 +271,7 @@ $(document).ready(function() {
                 });
                 // bounds[i] = circle.getBounds();
                 // console.log(bounds[i].contains(getLngLat))
-                
+
                 info = new google.maps.InfoWindow();
                 google.maps.event.addListener(marker,'click',(function(marker,i){
                         // console.log(item.place_name);
@@ -281,8 +281,8 @@ $(document).ready(function() {
                     }
                 })(marker,i));
 
-            
-            }); //each loadPrison 
+
+            }); //each loadPrison
                 google.maps.event.addListener(marker,'dragend',function (e){
                 var psLat = marker.getPosition().lat();
                 var psLng = marker.getPosition().lng();
@@ -313,7 +313,7 @@ $(document).ready(function() {
         // }
     }//init maps
 </script>
-<script async defer 
+<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdgUKh6LfJfhpD2QUvp9tNTIXYtlNNGsg&callback=initMap">
 </script>
 <!-- <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry" type="text/javascript"></script> -->
