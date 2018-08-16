@@ -7,49 +7,13 @@
 <html>
 <head>
 <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=spherical" type="text/javascript"></script>
-<script>
-$(document).ready(function(){
-  $("#out").click(function(){
-    $.ajax({
-      url: "/web_report/web_report_pri/c_login/logout",
-      type:'POST',
-      data: null,
-      success: function () {
-
-        window.location.href="http://localhost/web_report/web_report_pri/c_login";
-      },
-      error: function() {
-
-      }
-      });
-    });
-});
-
-</script>
 
 <style>
 
 
 
-#head{
-  background-color: #d9e6fc;
-  margin-bottom:3px;
 
 
-}
-#nav{
-  
-  margin-bottom:3px;
-
-}
-#side{
-  background-color: #d9e6fc;
-  margin-right:3px;
-  margin-top:3px;
-  margin-bottom:3px;
-  max-height: 500px;
-
-}
 #main{
 
   background-color: #d9e6fc;
@@ -59,18 +23,9 @@ $(document).ready(function(){
     margin-bottom:3px
 
 }
-#foot{
-  background-color: #d9e6fc;
-    margin-top:3px;
-    clear:both;
 
 
-}
 
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
 </style>
 </head>
 <body>

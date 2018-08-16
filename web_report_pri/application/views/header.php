@@ -32,6 +32,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $("#out").click(function(){
+        $.ajax({
+          url: "/web_report/web_report_pri/c_login/logout",
+          type:'POST',
+          data: null,
+          success: function () {
+
+            window.location.href="http://localhost/web_report/web_report_pri/c_login";
+          },
+          error: function() {
+
+          }
+          });
+        });
+
+        $(function() {
+
+          $("#main").slideDown('slow').promise().always(function(){
+    $("#side").height($("#main").height()); // drop sidebar down
+}); // Just show homepage content
+
+        });
+
+    });
+
+    </script>
+
     <style>
 
     html, body {
@@ -42,12 +71,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   width:1350px;
   height:200px;
 }
+
+.navbar-default {
+    background-color: #b7f7f6;
+
+}
+
+li#v_me{
+  border-bottom: 1px solid #565656;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+li#h_me{
+  border-right: 1px solid white;
+
+}
+
+
+
+#nav{
+
+  margin-bottom:3px;
+
+}
+#side{
+
+  margin-right:3px;
+  margin-top:3px;
+  margin-bottom:3px;
+   position:relative;
+   height:100%;
+
+}
+.nav-link.side{
+  color:white;
+}
 </style>
     </head>
 <body>
 <?php  if($this->session->userdata('user_id') !=NULL) { ?>
-  <nav id="nav" class="navbar navbar-default navbar-top topnav navbar-expand-lg  bg-light" role="navigation">
-    <a class="navbar-brand" href="#">Navbar</a>
+  <nav id="nav" class="navbar navbar-default navbar-top topnav navbar-expand-lg " role="navigation">
+    <a class="navbar-brand" href="http://localhost/web_report/web_report_pri/c_profile">ระบบติดตามผู้ถูกคุมความประพฤติ</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -55,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="http://localhost/web_report/web_report_pri/c_profile">หน้าหลัก <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
@@ -84,20 +149,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </nav>
   <div id="wrapper" style="display: flex;" >
-      <img src="https://www.publicdomainpictures.net/pictures/150000/velka/banner-header-tapete-145002399028x.jpg" />
+      <img src="https://cdn-images-1.medium.com/max/1920/1*n5hJwlMee4H99f4JW-42CA.png" />
   </div>​​​​​​​​​​
   <div class="row " style="margin-top:-30px" >
 
     <div class="col-md-12" id="nav">
       <nav class="navbar-dark bg-primary navbar-expand-md "  >
         <ul class="navbar-nav nav-pills nav-justified"  >
-          <li class="nav-item border border-light rounded" >
-            <a class="nav-link" href="http://localhost/web_report/web_report_pri/c_table_report">Link 1</a>
+          <li class="nav-item " id="h_me" >
+            <a class="nav-link"  href="http://localhost/web_report/web_report_pri/c_table_report">ตรวจสอบตำแหน่ง</a>
           </li>
-          <li class="nav-item border border-light rounded">
+          <li class="nav-item " id="h_me">
             <a class="nav-link" href="#">Link 2</a>
           </li>
-          <li class="nav-item border border-light rounded">
+          <li class="nav-item " id="h_me">
           <a class="nav-link" href="#">Link 3</a>
           </li>
         </ul>
@@ -107,18 +172,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
   <div class="row" >
      <div class="col-md-2" id="side">
-       <ul class="nav flex-column  nav-pills">
-     <li class="nav-item ">
-       <a class="nav-link" href="#">Active</a>
+       <ul class="nav flex-column  nav-pills bg-dark text-white rounded-right" id="v_main" style=" height:100%; width:108%;">
+     <li class="nav-item  " id="v_me">
+       <a class="nav-link side" href="#">Active</a>
      </li>
-     <li class="nav-item ">
-       <a class="nav-link" href="#">Link</a>
+     <li class="nav-item " id="v_me">
+       <a class="nav-link side" href="#">Link</a>
      </li>
-     <li class="nav-item ">
-       <a class="nav-link" href="#">Link</a>
+     <li class="nav-item " id="v_me">
+       <a class="nav-link side" href="#">Link</a>
      </li>
-     <li class="nav-item ">
-       <a class="nav-link disabled" href="#">Disabled</a>
+     <li class="nav-item " id="v_me">
+       <a class="nav-link side disabled" href="#">Disabled</a>
      </li>
    </ul>
 </div>

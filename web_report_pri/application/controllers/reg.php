@@ -31,13 +31,14 @@ class reg extends CI_Controller{
 
        $mgd = $this->mgd;
       if($mgd->isExist($_POST['username'])){
-    ?>
-    <script>
-  alert("Username already exists");
-  </script>
 
-<?php
-      }else{
+?>
+<script type="text/javascript">
+var alertMsg = "<?php echo $username ?>";
+alert("This username("+alertMsg+") is already exist");
+window.location.href = "http://localhost/web_report/web_report_pri/reg";
+</script>
+<?php    }else{
 
         $mgd->insert();
         header("Location: http://localhost/web_report/web_report_pri/c_login");

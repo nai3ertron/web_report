@@ -12,7 +12,10 @@
 
 
 #pad{
-	padding:10px;
+	padding-top:15px;
+  padding-left:15px;
+  padding-right:15px;
+  padding-bottom:0px;
 }
 
 
@@ -37,9 +40,9 @@ body{
     <form   method="post" action="/web_report/web_report_pri/reg/register">
       <div class="col-xs-offset-3 col-xs-6">
 
-      <div class="panel panel-default shadow-sm p-3 mb-5 bg-white rounded" style="width:25%; " >
+      <div class="panel panel-default shadow-sm bg-white rounded" style="width:25%; " >
         <div class="panel-content ">
-         <div class="panel-heading ">
+         <div class="panel-heading bg-dark text-white rounded-top" style="padding:5px; ">
            <h3 class="panel-title text-center">Registration</h3>
          </div>
 
@@ -71,7 +74,7 @@ body{
 
 
           <div class="panel-footer">
-            <div class="form-group" style="padding:5px;">
+            <div class="form-group" style="padding:10px;">
              <span align="center">
              already have an account:<a href='http://localhost/web_report/web_report_pri/c_login' >Log In</a>
              </span>
