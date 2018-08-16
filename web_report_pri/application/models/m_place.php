@@ -14,7 +14,7 @@ class m_place extends CI_Model {
             $this->db->like('lat',$lat);
             $this->db->or_like('lon',$lon);
         }
-        $this->db->order_by('place_id');
+        $this->db->order_by('pl_id');
         return $this->db->get();
     }
 

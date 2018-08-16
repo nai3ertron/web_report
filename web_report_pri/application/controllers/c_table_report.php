@@ -16,34 +16,56 @@ class c_table_report extends CI_Controller {
         $this->load->model("m_table_report");
         $data["fetch_table"] = $this->m_table_report->fetch_table_report();
         $this->load->view("table_report",$data);
-
-        // $countries = $this->European_countries_model->get_countries(); 
-        // $data['countries'] = $countries;
-
-        // $response = array();
-        // $posts = array();
-        // foreach ($countries as $country) { 
-        //     $posts[] = array(
-        //         "title"                 =>  $country->euro_id,
-        //         "flag"                  =>  $country->flag_name,
-        //         "population"            =>  $country->population,
-        //         "avg_annual_gcountryth" =>  $country->avg_annual_gcountryth,
-        //         "date"                  =>  $country->date
-        //     );
-        // } 
-        // $response['posts'] = $posts;
-        // echo json_encode($response,TRUE);
     }
     function loadDataReport(){
-        $sql = $this->db->query("select * from prison 
-            join prename 
-            on prename.pre_id = prison.pre_id
-            join places
-            on prison.ps_pl_id = places.place_id
-            ")->result();
+        $sql = $this->db->query("select * from places")->result();
         echo json_encode($sql);
     }
-     
+    
+    function loadPrisonLatLng(){
+        $sql = $this->db->query("select ps_name,ps_surname,places.lat,places.lon from prison
+        join places on places.pl_id = prison.pl_id
+        ")->result();
+        echo json_encode($sql);
+    }
+
+    // function loadReport($check){
+    //   $data = $this->load->model("m_table_report");
+    //    echo $check;
+    //    if($data->num_rows() > 0){
+    //         foreach ($data->result() as $row) {
+    //             // if($row->lat == $lat & $row->lon == $lon){
+    //                 // if($check){
+    //                 //     $temp = "true";
+    //                 // }else{
+    //                 //     $temp = "false";
+    //                 // }
+    //                 $output .= '<tr>
+    //                 <td><?php '.$row->ps_id.'</td>
+    //                 <td><?php '.$row->pre_name." ".$row->ps_name.'</td>
+    //                 <td><?php  '.$row->ps_surname.'</td>
+    //                 <td class="text-left">'.  $row->pl_name.'</td>
+    //                 <td class="text-left"> '.$row->lat.", ".$row->lon .'</td>
+    //                 <td > '."true".'</td>
+    //             </tr> 
+    //                 ';
+    //             // }else{
+    //                 // $output .= '
+    //                 //     <div class="text-center">
+    //                 //         <ul>Not found ! please check your lat & lng</ul>
+    //                 //     </div>';
+    //                 //     break;
+    //             // }
+    //         }
+    //     }else{
+    //         $output .= '
+    //         <div>
+    //         <ul>Not found</ul>
+    //     </div>';
+    //     }
+    //     echo $output;
+
+    // }
 
     
 }

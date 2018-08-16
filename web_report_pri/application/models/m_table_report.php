@@ -10,10 +10,10 @@ class m_table_report extends CI_Model {
     function fetch_table_report(){
         // $query = $this->db->get("prison");
         $query = $this->db->query("select * from prison 
-        join prename 
-        on prename.pre_id = prison.pre_id
+        join prefix
+        on prefix.pre_id = prison.pre_id
         join places
-        on prison.ps_pl_id = places.place_id
+        on prison.pl_id = places.pl_id
         ");
         return $query;
     }
