@@ -33,9 +33,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <style>
-    #wrapper, img{
-    width:1350px;
-    max-height:200px;
+#wrapper, img{
+  width:1350px;
+  height:200px;
 }
 </style>
     </head>
@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <span class="label" style="float:right;margin:3px; "><?php echo $this->session->userdata('username'); ?></span>
+        <span class="label" style="float:right;margin:3px; "><?php  echo $this->session->userdata('username'); ?></span>
 
         <button class="btn btn-info" id="out" style="float:right; margin:3px;">log out</button>
 
@@ -119,10 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
      </li>
    </ul>
 </div>
-
-
-
-<?php } ?>
+<?php  } ?>
 
      
     
