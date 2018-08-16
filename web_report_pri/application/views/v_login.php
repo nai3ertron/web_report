@@ -1,5 +1,7 @@
 <?php
-  //  include('header.php');
+if ($this->session->userdata('user_id') != NULL) {
+   header('location:http://localhost/web_report/web_report_pri/c_profile');
+}
 ?>
 <html>
 <head>
