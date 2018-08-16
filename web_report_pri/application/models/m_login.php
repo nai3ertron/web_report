@@ -16,8 +16,11 @@ class m_login extends CI_Model {
      }
 
 
-     public function get_user($username,$password){
-       $sql="SELECT * FROM users WHERE username = '$username' AND password ='$password'";
+     public function get_user($username){
+
+       $sql="SELECT * FROM users WHERE username = '$username' ";
+
+
        $result = $this->db->query($sql);
        return $result;
 
@@ -27,16 +30,24 @@ class m_login extends CI_Model {
     public function check_login($username,$password){
       $this->username = $username;
         $this->password = $password;
-      $sql="SELECT * FROM users WHERE username = '$username' AND password ='$password'";
+
+        $key="SELECT password FROM users WHERE username = '$username' ";
+        $row= $this->db->query($key)->row_array();
+
+    $hash=$row['password'];
+   $hash = substr( $hash, 0, 60 );
+        if(password_verify($password,$hash)){
+
+      $sql="SELECT * FROM users WHERE username = '$username' AND password ='$hash';";
       $query = $this->db->query($sql);
 
    if($query->num_rows()>0){
         return true;
     }
-    else{
 
-      return false;
-    }
+  }else{
+    return false;
+  }
 }
 
 }
