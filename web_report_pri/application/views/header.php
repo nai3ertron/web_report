@@ -41,8 +41,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </head>
 <body>
 <?php  if($this->session->userdata('user_id') !=NULL) { ?>
-
-
   <nav id="nav" class="navbar navbar-default navbar-top topnav navbar-expand-lg  bg-light" role="navigation">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
