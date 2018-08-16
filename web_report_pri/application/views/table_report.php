@@ -5,25 +5,29 @@
     /* Always set the map height explicitly to define the size of the div
     * element that contains the map. */
     #map {
-    min-height: 550px;
-    width: 100%;
-    height:100%;
+        min-height: 550px;
+        /* max-width: 550px !important; */
+        width: 100%;
+        height:100%;
+    }
+    .map *, .map *:before, .map *:after {
+        -webkit-transform: none !important; 
     }
     /* Optional: Makes the sample page fill the window. */
     html, body {
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
     }
     .float-panal{
-    position : absolute;
-    top: 25px;
-    left: 25%;
-    z-index: 5;
-    padding: 5px;
+        position : absolute;
+        top: 25px;
+        left: 25%;
+        z-index: 5;
+        padding: 5px;
     }
 </style>
-<div class="container" style="margin-top:3%" id="main">
+<div class="container" style="margin-top:3%">
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive-md">
@@ -36,15 +40,14 @@
                         <th style="width: 15%">สถานที่</th>
                         <th style="width: 15%">พิกัด</th>
                         <th style="width: 5%">สถานะ</th>
-
-
                     </tr>
                 </thead>
             <tbody >
-            <?php
+            <?php 
                 if($fetch_table->num_rows() > 0){
-                    foreach ($fetch_table->result() as $row) {
+                    foreach ($fetch_table->result() as $index => $row) {
                         // print_r($row);
+                        
             ?>
                         <tr>
                             <td><?php echo $row->ps_id; ?></td>
@@ -52,8 +55,7 @@
                             <td><?php echo $row->ps_surname; ?></td>
                             <td class="text-left"><?php echo $row->pl_name; ?></td>
                             <td class="text-left"><?php echo $row->lat.", ".$row->lon ;?> </td>
-                            <td id="action"></td>
-
+                            <td id="action<?php echo $index; ?>"></td>
                         </tr>
             <?php
                     }
@@ -63,11 +65,11 @@
                     <tr>
                         <td colspan="3"> Data not found !! </td>
                     </tr>
-            <?php
-
+            <?php  
+                    
                 }
             ?>
-
+            
             </tbody>
             </table>
         </div>
@@ -77,7 +79,7 @@
   <div class="float-panal">
     <div class="row">
         <div class="col-md-4 form-group">
-            <input class="form-control input-sm" type="text" id="lat" placeholder="latitude">
+            <input class="form-control input-sm" type="text" id="lat" placeholder="latitude"> 
         </div>
         <div class="col-md-4 form-group">
             <input class="form-control input-sm" type="text" id="lng" placeholder="longitude">
@@ -101,7 +103,7 @@ $(document).ready(function() {
     $('#test_data').DataTable({
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
     });
-
+   
     // load_place_data();
     // function load_place_data(lat,lon){
     //     $.ajax({
@@ -110,7 +112,7 @@ $(document).ready(function() {
     //         data:{lat:lat,lon:lon},
     //         success:function (data) {
     //             $('#show_report').html(data);
-
+               
     //         }
     //     });
     // }
@@ -129,7 +131,7 @@ $(document).ready(function() {
     //     }
     // })
 });
-//
+// 
     var map;
     var position = {lat: 13.847860 , lng: 100.604274};
     function initMap() {
@@ -146,7 +148,7 @@ $(document).ready(function() {
             // mapOption
         });
         var marker, info;
-        $.getJSON("loadDataReport",function(jsonObj){
+        $.getJSON("c_table_report/loadDataReport",function(jsonObj){
             $.each(jsonObj, function(i,item){
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(item.lat,item.lon),
@@ -164,12 +166,13 @@ $(document).ready(function() {
                 });
             // attach circle to marker
                 circle.bindTo('center', marker, 'position');
+                
                 // bounds[i] = circle.getBounds();
                 // console.log(bounds+" : "+i)
                 latPlace[i] = item.lat;
                 lngPlace[i] = item.lon;
 
-                console.log(latPlace[i],lngPlace[i])
+                // console.log(latPlace[i],lngPlace[i])
                 // create content of mark
                 info = new google.maps.InfoWindow();
                 google.maps.event.addListener(marker,'click',(function(marker,i){
@@ -182,13 +185,20 @@ $(document).ready(function() {
             }); // each loadPlaces
         });//get json
         document.getElementById('search').addEventListener('click',function(){
-            setLatLng(position)
+            if( document.getElementById('search') != null){
+                setLatLng(position);
+            }else{
+                alert("input your value")
+            }
+            // checkArea();
         });
         // search
         function setLatLng(position) {
-            var lat = parseFloat(document.getElementById('lat').value);
-            var lng = parseFloat(document.getElementById('lng').value);
-            position = {lat: lat, lng: lng};
+            var lat = 0;
+                lat = parseFloat(document.getElementById('lat').value);
+            var lng = 0;
+                lng = parseFloat(document.getElementById('lng').value);
+            position = {lat: lat, lng: lng};         
             var marker = new google.maps.Marker({
                     position: position,
                     draggable: true,
@@ -196,50 +206,18 @@ $(document).ready(function() {
                     label: labels[labelIndex++ % labels.length],
                     map: map,
             })
-            var distance = google.maps.geometry.spherical.computeDistanceBetween(
-                        new google.maps.LatLng(13.7958187, 100.574487), new google.maps.LatLng(lat, lng));
-                    console.log(distance);
-                    if(distance > 4973.476925843845){
-                        // console.log("out");
-                        $('#action').html("อยู่นอกเขต").css({"background-color":"red","color":"white"})
-
-                    }else {
-                        $('#action').html("อยู่ในเขต").css({"background-color":"green","color":"white"})
-                        // console.log("in");
-                    // $('#action').html("ดีมากไอหนู")
-
-                    console.log(": "+true)
-
-                    }
+            checkArea(lat,lng);
             google.maps.event.addListener(marker,'dragend',function (e){
-                var getLat = marker.getPosition().lat();
-                var getLng = marker.getPosition().lng();
+                var getLat = 0;
+                    getLat = marker.getPosition().lat();
+                var getLng = 0;
+                    getLng = marker.getPosition().lng();
                 var getLngLat = {lat:getLat,lng:getLng}
                 map.panTo(marker.getPosition());
                 $('#lat').val(getLat);
                 $('#lng').val(getLng);
-                var distance = google.maps.geometry.spherical.computeDistanceBetween(
-                    new google.maps.LatLng(latPlace[0], lngPlace[0]), new google.maps.LatLng(getLat, getLng));
-                if(distance > 4973.476925843845){
-                    // $.ajax({
-                    //     url:"",
-                    //     method:"POST",
-                    //     data:"out of area",
-                    //     success:function (data) {
-                    //         $('#reportStatus').html(data);
-
-                    //     }
-                    // });
-                    $('#action').html("อยู่นอกเขต")
-                    $('#action').css({"background-color":"red"})
-                    console.log(getLngLat+": "+false)
-                }else {
-                    $('#action').html("อยู่ในเขต")
-                    $('#action').css({"background-color":"green"})
-                    console.log(": "+true)
-
-                }
-
+                
+                   
             });
             map.panTo(marker.getPosition());
         }// function search
@@ -255,23 +233,27 @@ $(document).ready(function() {
                 draggable: true,
                 animation: google.maps.Animation.DROP,
                 label: labels[labelIndex++ % labels.length],
-                map: map,
+                map: map,     
             })
         }  // click mark on map
 
         // loadPrison location
-        $.getJSON("loadPrisonLatLng",function(jsonObj){
+        $.getJSON("c_table_report/loadPrisonLatLng",function(jsonObj){
             $.each(jsonObj, function(i,item){
                 marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(13.79827,100.50458),
+                    position: new google.maps.LatLng(item.lat,item.lon),
                     draggable: true,
                     icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
                     animation: google.maps.Animation.DROP,
                     map: map
                 });
+                // console.log(jsonObj.length)
+                console.log(item.ps_name+" : "+item.lat,item.lon+":"+i);
+                // checkArea(item.lat,item.lon);
+
                 // bounds[i] = circle.getBounds();
                 // console.log(bounds[i].contains(getLngLat))
-
+                
                 info = new google.maps.InfoWindow();
                 google.maps.event.addListener(marker,'click',(function(marker,i){
                         // console.log(item.place_name);
@@ -280,40 +262,45 @@ $(document).ready(function() {
                         info.open(map, marker);
                     }
                 })(marker,i));
-
-
-            }); //each loadPrison
+                map.panTo(marker.getPosition());
+            }); //each loadPrison 
                 google.maps.event.addListener(marker,'dragend',function (e){
-                var psLat = marker.getPosition().lat();
-                var psLng = marker.getPosition().lng();
+                var psLat = 0;
+                var psLng = 0;
+                    psLat = marker.getPosition().lat();
+                    psLng = marker.getPosition().lng();
                 var getLngLat = {lat:psLat,lng:psLng}
-                // function calcDistance (fromLat, fromLng, toLat, toLng) {
-                    var distance = google.maps.geometry.spherical.computeDistanceBetween(
-                        new google.maps.LatLng(13.7958187, 100.574487), new google.maps.LatLng(psLat, psLng));
-                    console.log(distance);
-                    if(distance > 4973.476925843845){
-                        // console.log("out");
-                        $('#action').html("อยู่นอกเขต").css({"background-color":"red","color":"white"})
-
-                    }else {
-                        $('#action').html("อยู่ในเขต").css({"background-color":"green","color":"white"})
-                        // console.log("in");
-                    // $('#action').html("ดีมากไอหนู")
-
-                    console.log(": "+true)
-
-                    }
-                // }
-                // map.panTo(marker.getPosition());
-
+                console.log(psLat,psLng);
+                checkArea(psLat,psLng);
                 });
         });//get json
         // function checkPosition (){
 
         // }
+        function checkArea(Lat,Lng) { 
+                var distance = 0;
+                    distance = google.maps.geometry.spherical.computeDistanceBetween(
+                        new google.maps.LatLng(13.7958187, 100.574487), new google.maps.LatLng(Lat, Lng));
+                    // console.log(distance);
+                    // console.log()
+                    
+                    if(distance > 5000){
+                        // console.log(Lat,Lng)
+                        // console.log($('#action+i').data('value'));
+                        $('td[id^="action"]').html("อยู่นอกเขต").css({"background-color":"red","color":"white"}).data('value')
+
+                    }else {
+                        // console.log(Lat,Lng)
+                        // console.log($('#action+i').data('value'));
+                        $('td[id^="action"]').html("อยู่ในเขต").css({"background-color":"green","color":"white"}).data('value')
+                    }
+        }
     }//init maps
+
 </script>
-<script async defer
+<script async defer 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdgUKh6LfJfhpD2QUvp9tNTIXYtlNNGsg&callback=initMap">
 </script>
-<!-- <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry" type="text/javascript"></script> -->
+<!-- <script src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script> -->
+
+ 
