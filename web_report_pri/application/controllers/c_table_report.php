@@ -23,7 +23,7 @@ class c_table_report extends CI_Controller {
     }
     
     function loadPrisonLatLng(){
-        $sql = $this->db->query("select ps_name,ps_surname,places.lat,places.lon from prison
+        $sql = $this->db->query("select ps_name,ps_surname,places.lat,places.lon,places.pl_id,ps_id from prison
         join places on places.pl_id = prison.pl_id
         ")->result();
         echo json_encode($sql);

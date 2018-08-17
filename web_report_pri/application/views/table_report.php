@@ -131,7 +131,6 @@ $(document).ready(function() {
     //     }
     // })
 });
-// 
     var map;
     var position = {lat: 13.847860 , lng: 100.604274};
     function initMap() {
@@ -206,7 +205,7 @@ $(document).ready(function() {
                     label: labels[labelIndex++ % labels.length],
                     map: map,
             })
-            checkArea(lat,lng);
+            // checkArea(lat,lng);
             google.maps.event.addListener(marker,'dragend',function (e){
                 var getLat = 0;
                     getLat = marker.getPosition().lat();
@@ -239,8 +238,10 @@ $(document).ready(function() {
 
         // loadPrison location
         $.getJSON("c_table_report/loadPrisonLatLng",function(jsonObj){
+           var  marker = [];
             $.each(jsonObj, function(i,item){
-                marker = new google.maps.Marker({
+
+                marker[i] = new google.maps.Marker({
                     position: new google.maps.LatLng(item.lat,item.lon),
                     draggable: true,
                     icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
@@ -248,6 +249,7 @@ $(document).ready(function() {
                     map: map
                 });
                 // console.log(jsonObj.length)
+                checkArea(item.lat,item.lon,i)
                 console.log(item.ps_name+" : "+item.lat,item.lon+":"+i);
                 // checkArea(item.lat,item.lon);
 
@@ -255,52 +257,59 @@ $(document).ready(function() {
                 // console.log(bounds[i].contains(getLngLat))
                 
                 info = new google.maps.InfoWindow();
-                google.maps.event.addListener(marker,'click',(function(marker,i){
+                google.maps.event.addListener(marker[i],'mouseover',(function(marker,i){
                         // console.log(item.place_name);
                     return function (){
+                        // checkArea(item.lat,item.lon,i)
                         info.setContent(item.ps_name + " " + item.ps_surname);
-                        info.open(map, marker);
+                        info.open(map, marker[i]);
                     }
                 })(marker,i));
-                map.panTo(marker.getPosition());
-            }); //each loadPrison 
-                google.maps.event.addListener(marker,'dragend',function (e){
-                var psLat = 0;
-                var psLng = 0;
-                    psLat = marker.getPosition().lat();
-                    psLng = marker.getPosition().lng();
-                var getLngLat = {lat:psLat,lng:psLng}
-                console.log(psLat,psLng);
-                checkArea(psLat,psLng);
+                google.maps.event.addListener(marker[i],'dragend',function(e){
+                    // item.lat = 0;
+                    // item.lon = 0;
+                    item.lat =  marker[i].getPosition().lat();
+                    item.lon =  marker[i].getPosition().lng();
+                    console.log(item.ps_name,item.lat,item.lon,":::",i);
+                    //return 
+                    checkArea(item.lat,item.lon,i)
+                    // var psLat = 0;
+                    // var psLng = 0;
+                    // var getLngLat = {lat:psLat,lng:psLng}
+                    // console.log(psLat,psLng);
+                    // checkArea(item.lat,item.lon);
+                map.panTo(marker[i].getPosition());
                 });
+            }); //each loadPrison 
         });//get json
         // function checkPosition (){
 
         // }
-        function checkArea(Lat,Lng) { 
-                var distance = 0;
-                    distance = google.maps.geometry.spherical.computeDistanceBetween(
+        function checkArea(Lat,Lng,i) { 
+            // for (let index = 0; index < i; index++) {
+                
+                var distance = [];
+                    distance[i] = google.maps.geometry.spherical.computeDistanceBetween(
                         new google.maps.LatLng(13.7958187, 100.574487), new google.maps.LatLng(Lat, Lng));
                     // console.log(distance);
-                    // console.log()
-                    
-                    if(distance > 5000){
-                        // console.log(Lat,Lng)
-                        // console.log($('#action+i').data('value'));
-                        $('td[id^="action"]').html("อยู่นอกเขต").css({"background-color":"red","color":"white"}).data('value')
+                    console.log(Lat+"  "+ Lng + " :: " +i,"distance : " + distance[i])
+                    if(distance[i] > 5000){
+                        // console.log($('td[id^="action+i"]').data('id'))
+                        console.log(Lat+"  "+ Lng + " :: " +i,"distance11 : " + distance[i])
+                        $('td[id='+"action"+i+']').html("อยู่นอกเขต").css({"background-color":"red","color":"white"})
 
                     }else {
-                        // console.log(Lat,Lng)
-                        // console.log($('#action+i').data('value'));
-                        $('td[id^="action"]').html("อยู่ในเขต").css({"background-color":"green","color":"white"}).data('value')
+                        $('td[id='+"action"+i+']').html("อยู่ในเขต").css({"background-color":"green","color":"white"})
                     }
+            // }
         }
     }//init maps
+// 
 
 </script>
 <script async defer 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdgUKh6LfJfhpD2QUvp9tNTIXYtlNNGsg&callback=initMap">
 </script>
-<!-- <script src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script> -->
+<script src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
 
  
