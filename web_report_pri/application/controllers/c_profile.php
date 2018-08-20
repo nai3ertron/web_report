@@ -20,15 +20,12 @@ class c_profile extends CI_Controller{
 
      }
 
-     public function get_all(){
- 			$sql="SELECT username FROM users ";
- 			$result = $this->db->query($sql);
- 			return $result;
+
 
 
  		}
 
 
-   }
+   
 
 ?>

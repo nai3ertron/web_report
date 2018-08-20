@@ -67,9 +67,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         max-width: 100%;
         overflow-x: hidden;
     }
-#wrapper, img{
-  width:1350px;
-  height:200px;
+#wrapper,img{
+  width: 100%;
+  max-width: 100%;
+  height: 300px;
 }
 
 .navbar-default {
@@ -160,7 +161,7 @@ li#h_me{
             <a class="nav-link"  href="http://localhost/web_report/web_report_pri/c_table_report">ตรวจสอบตำแหน่ง</a>
           </li>
           <li class="nav-item " id="h_me">
-            <a class="nav-link" href="#">Link 2</a>
+            <a class="nav-link" href="#">จัดการข้อมูลผู้ถูกคุมประพฤติ</a>
           </li>
           <li class="nav-item " id="h_me">
           <a class="nav-link" href="#">Link 3</a>
