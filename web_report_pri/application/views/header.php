@@ -96,15 +96,7 @@ li#h_me{
   margin-bottom:3px;
 
 }
-#side{
 
-  margin-right:3px;
-  margin-top:3px;
-  margin-bottom:3px;
-   position:relative;
-   height:100%;
-
-}
 .nav-link.side{
   color:white;
 }
@@ -172,20 +164,6 @@ li#h_me{
 
   </div>
   <div class="row" >
-     <div class="col-md-2" id="side">
-       <ul class="nav flex-column  nav-pills bg-dark text-white rounded-right" id="v_main" style=" height:100%; width:108%;">
-     <li class="nav-item  " id="v_me">
-       <a class="nav-link side" href="#">Active</a>
-     </li>
-     <li class="nav-item " id="v_me">
-       <a class="nav-link side" href="#">Link</a>
-     </li>
-     <li class="nav-item " id="v_me">
-       <a class="nav-link side" href="#">Link</a>
-     </li>
-     <li class="nav-item " id="v_me">
-       <a class="nav-link side disabled" href="#">Disabled</a>
-     </li>
-   </ul>
+
 </div>
 <?php  } ?>
