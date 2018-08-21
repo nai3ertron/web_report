@@ -1,33 +1,30 @@
 <?php
-    include('header.php');
-      include('footer.php');
+
     ?>
     <script>
     $(document).ready(function(){
-
-
-
+      $('#prison').DataTable({
+          "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+      });
 
     });
     </script>
 <style>
+.ps_id{
+  width:10%
+}
  .psname{
   width:20%;
  }
   .place{
-  width:30%;
+  width:40%;
   }
   .rad{
    width:10%;
   }
-  .tt_time{
-  width:15%;
-  }
-  .lf_time{
-width:15%;
-  }
+
  .pro{
- width:10%;
+ width:20%;
  }
 
  #t_head{
@@ -82,7 +79,7 @@ width:15%;
              </div>
              <div class="col-md-9">
                <label for="ps_id">รหัส:</label>
-               <input type="text" class="form-control" id="ps_id" name="ps_id" required>
+               <input type="text" class="form-control" id="ps_id" name="ps_id" >
              </div>
             </div>
 
@@ -91,9 +88,9 @@ width:15%;
              <div id="prename" class="col-md-3">
 
                <label class="control-label" for="pre_id">คำนำหน้า:</label>
-                 <select class="form-control " id="pre_id">
+                 <select class="form-control " id="pre_id" name="pre_id">
                   <?php foreach($pref->result() as $val){?>
-                   <option name="pre_name" value="<?php echo $val->pre_id; ?>"><?php echo $val->pre_name; ?></option>
+                   <option name="pre_id" value="<?php echo $val->pre_id; ?>"><?php echo $val->pre_name; ?></option>
                    <?php } ?>
                  </select>
              </div>
@@ -143,7 +140,7 @@ width:15%;
 </div>
       </div>
       <div class="modal-footer d-flex ">
-      <!---ปุ่มบันทึก --><button type="submit"  onclick="" class="btn btn-success pull-right">บันทึก</button>
+      <!---ปุ่มบันทึก --><button type="submit"  class="btn btn-success pull-right">บันทึก</button>
 
         </form>
 
@@ -246,20 +243,20 @@ width:15%;
 
 
 
-<div class="container-fluid">
+<div class="container-fluid" style="padding:100px">
   <span>
       <a  type="button" class="btn btn-success text-white" style="float:right; padding:3px; margin-bottom:5px;"
       data-toggle="modal" data-target="#insertModal">เพิ่มข้อมูล</a>
   </span>
-<table class="table table-striped table-bordered" rold="grid" width="300 px;">
+    <div class="table-responsive-md">
+<table id="prison" class="table table-striped table-bordered" rold="grid" width="300 px;">
 <thead class="panel-heading">
   <tr >
     <th id="t_head">ที่</th>
     <th class="psname" id="t_head" >ชื่อ-สกุล</th>
     <th class="place" id="t_head">สถานที่คุมประพฤติ(พิกัด ละติจูด/ลองจิจูด)</th>
     <th class="rad" id="t_head">ระยะอาณาเขตคุมประพฤติ(รัศมี(กม.))</th>
-    <th class="tt_time" id="t_head">ระยะเวลาคุมประพฤติ</th>
-    <th class="lf_time" id="t_head">ระยะเวลาคงเหลือ</th>
+
     <th class="pro" id="t_head">ข้อมูลเพิ่มเติม</th>
   </tr>
 </thead>
@@ -270,8 +267,7 @@ width:15%;
     <td><?php echo $val->pre_name.$val->ps_name." ".$val->ps_surname  ; ?></td>
     <td><?php echo $val->pl_name."(".$val->lat."/".$val->lon.")"  ; ?></td>
     <td align="center">5</td>
-    <td>03:00:00:00:00</td>
-    <td>02:01:03:12:30</td>
+
     <td><center>  <a  type="button" class="btn btn-warning"   data-toggle="modal" data-target="#infoModal"></a></td>
   </tr>
 <?php } ?>
@@ -279,4 +275,4 @@ width:15%;
 </table>
 </div>
 
-</div><!--end row for sidebar and main-->
+</div>
