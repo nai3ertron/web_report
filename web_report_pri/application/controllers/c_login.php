@@ -66,7 +66,7 @@ window.location.href='http://localhost/web_report/web_report_pri/c_login';
      $this->session->unset_userdata('username');
      $this->session->unset_userdata('password');
      $this->session->sess_destroy();
-  
+
  }
 
 

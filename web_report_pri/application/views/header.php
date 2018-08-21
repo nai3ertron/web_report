@@ -153,7 +153,7 @@ li#h_me{
             <a class="nav-link"  href="http://localhost/web_report/web_report_pri/c_table_report">ตรวจสอบตำแหน่ง</a>
           </li>
           <li class="nav-item " id="h_me">
-            <a class="nav-link" href="#">จัดการข้อมูลผู้ถูกคุมประพฤติ</a>
+            <a class="nav-link" href="http://localhost/web_report/web_report_pri/c_list">จัดการข้อมูลผู้ถูกคุมประพฤติ</a>
           </li>
           <li class="nav-item " id="h_me">
           <a class="nav-link" href="#">Link 3</a>
