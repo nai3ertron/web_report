@@ -168,10 +168,10 @@ $(document).ready(function() {
                 
                 // bounds[i] = circle.getBounds();
                 // console.log(bounds+" : "+i)
-                latPlace[i] = item.lat;
-                lngPlace[i] = item.lon;
+                // latPlace[i] = item.lat;
+                // lngPlace[i] = item.lon;
 
-                // console.log(latPlace[i],lngPlace[i])
+                // console.log(latPlace[i],lngPlace[i],"::"+i)
                 // create content of mark
                 info = new google.maps.InfoWindow();
                 google.maps.event.addListener(marker,'click',(function(marker,i){
@@ -183,15 +183,16 @@ $(document).ready(function() {
                 })(marker,i));
             }); // each loadPlaces
         });//get json
+
+        // search
         document.getElementById('search').addEventListener('click',function(){
-            if( document.getElementById('search') != null){
+            if( document.getElementById('search').value != null){
                 setLatLng(position);
             }else{
                 alert("input your value")
             }
             // checkArea();
         });
-        // search
         function setLatLng(position) {
             var lat = 0;
                 lat = parseFloat(document.getElementById('lat').value);
@@ -249,14 +250,20 @@ $(document).ready(function() {
                     map: map
                 });
                 // console.log(jsonObj.length)
-                checkArea(item.lat,item.lon,i)
-                console.log(item.ps_name+" : "+item.lat,item.lon+":"+i);
+                latPlace[i] = item.lat;
+                lngPlace[i] = item.lon;
+                
+                // console.log(latPlace[i],lngPlace[i],"::"+i)
+
+                checkArea(item.lat,item.lon,i,latPlace[i],lngPlace[i])
+                // console.log(item.ps_name+" : "+item.lat,item.lon+":"+i);
                 // checkArea(item.lat,item.lon);
 
                 // bounds[i] = circle.getBounds();
                 // console.log(bounds[i].contains(getLngLat))
                 
                 info = new google.maps.InfoWindow();
+                // open content
                 google.maps.event.addListener(marker[i],'mouseover',(function(marker,i){
                         // console.log(item.place_name);
                     return function (){
@@ -265,14 +272,21 @@ $(document).ready(function() {
                         info.open(map, marker[i]);
                     }
                 })(marker,i));
+                // close content
+                google.maps.event.addListener(marker[i],'mouseout',(function(marker,i){
+                    return function (){
+                        // checkArea(item.lat,item.lon,i)
+                        info.close(map, marker[i]);
+                    }
+                })(marker,i));
                 google.maps.event.addListener(marker[i],'dragend',function(e){
                     // item.lat = 0;
                     // item.lon = 0;
                     item.lat =  marker[i].getPosition().lat();
                     item.lon =  marker[i].getPosition().lng();
-                    console.log(item.ps_name,item.lat,item.lon,":::",i);
+                    // console.log(item.ps_name,item.lat,item.lon,":::",i);
                     //return 
-                    checkArea(item.lat,item.lon,i)
+                    checkArea(item.lat,item.lon,i,latPlace[i],lngPlace[i])
                     // var psLat = 0;
                     // var psLng = 0;
                     // var getLngLat = {lat:psLat,lng:psLng}
@@ -285,14 +299,14 @@ $(document).ready(function() {
         // function checkPosition (){
 
         // }
-        function checkArea(Lat,Lng,i) { 
+        function checkArea(Lat,Lng,i,latP,lonP) { 
             // for (let index = 0; index < i; index++) {
                 
                 var distance = [];
                     distance[i] = google.maps.geometry.spherical.computeDistanceBetween(
-                        new google.maps.LatLng(13.7958187, 100.574487), new google.maps.LatLng(Lat, Lng));
+                        new google.maps.LatLng(latP, lonP), new google.maps.LatLng(Lat, Lng));
                     // console.log(distance);
-                    console.log(Lat+"  "+ Lng + " :: " +i,"distance : " + distance[i])
+                    console.log(Lat+"  "+ Lng + "index:: " +i,"distance : " + distance[i])
                     if(distance[i] > 5000){
                         // console.log($('td[id^="action+i"]').data('id'))
                         console.log(Lat+"  "+ Lng + " :: " +i,"distance11 : " + distance[i])
@@ -311,5 +325,9 @@ $(document).ready(function() {
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdgUKh6LfJfhpD2QUvp9tNTIXYtlNNGsg&callback=initMap">
 </script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+
+<?php 
+include("footer.php");
+?>
 
  

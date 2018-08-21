@@ -28,6 +28,9 @@ class c_table_report extends CI_Controller {
         ")->result();
         echo json_encode($sql);
     }
+    // public function __destruct() {  
+    //     $this->db->close();  
+    // } 
 
     // function loadReport($check){
     //   $data = $this->load->model("m_table_report");
